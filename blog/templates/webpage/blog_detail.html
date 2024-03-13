@@ -1,0 +1,214 @@
+{% extends "webpage/base.html" %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+
+{% block og_url %}https://{{domain}}{% if language != 'fr' %}/{{ language }}{% endif %}/articles/{{ article.slug }}{% endblock %}
+{% block og_title %}{% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %}{% endblock %}
+{% block og_image %}{% if article.image_upload %}https://{{domain}}{{article.image_upload.url}}{% else %}{{article.image}}{% endif %}{% endblock %}
+
+{% block metaDesc %}{% if language == 'fr' %}{{ article.content|clean_markdown|truncatechars:160 }}{% elif language == 'en' %}{{ article.content_en|clean_markdown|truncatechars:160 }}{% elif language == 'es' %}{{ article.content_es|clean_markdown|truncatechars:160 }}{% elif language == 'de' %}{{ article.content_de|clean_markdown|truncatechars:160 }}{% elif language == 'it' %}{{ article.content_it|clean_markdown|truncatechars:160 }}{% elif language == 'ko' %}{{ article.content_ko|clean_markdown|truncatechars:160 }}{% elif language == 'ja' %}{{ article.content_ja|clean_markdown|truncatechars:160 }}{% endif %}{% endblock %}
+{% block canonical %}https://{{domain}}{% if language != 'fr' %}/{{ language }}{% endif %}/articles/{{ article.slug }}{% endblock %}
+{% block twitter_title %}{% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %}{% endblock %}
+{% block twitter_desc %}{% if language == 'fr' %}{{ article.content|clean_markdown|truncatechars:100 }}{% elif language == 'en' %}{{ article.content_en|clean_markdown|truncatechars:100 }}{% elif language == 'es' %}{{ article.content_es|clean_markdown|truncatechars:100 }}{% elif language == 'de' %}{{ article.content_de|clean_markdown|truncatechars:100 }}{% elif language == 'it' %}{{ article.content_it|clean_markdown|truncatechars:100 }}{% elif language == 'ko' %}{{ article.content_ko|clean_markdown|truncatechars:100 }}{% elif language == 'ja' %}{{ article.content_ja|clean_markdown|truncatechars:100 }}{% endif %}{% endblock %}
+{% block twitter_img %}{% if article.image_upload %}https://{{domain}}{{article.image_upload.url}}{% else %}{{article.image}}{% endif %}{% endblock %}
+{% block twitter_img_alt %}{% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %}{% endblock %}
+
+
+{% block head %}
+<link rel="alternate" hreflang="fr" href="https://{{domain}}/articles/{{ article.slug }}" />
+<link rel="alternate" hreflang="en" href="https://{{domain}}/en/articles/{{ article.slug }}" />
+<link rel="alternate" hreflang="de" href="https://{{domain}}/de/articles/{{ article.slug }}" />
+<link rel="alternate" hreflang="es" href="https://{{domain}}/es/articles/{{ article.slug }}" />
+<link rel="alternate" hreflang="it" href="https://{{domain}}/it/articles/{{ article.slug }}" />
+<link rel="alternate" hreflang="ja" href="https://{{domain}}/ja/articles/{{ article.slug }}" />
+<link rel="alternate" hreflang="ko" href="https://{{domain}}/ko/articles/{{ article.slug }}" />
+<link rel="alternate" hreflang="x-default" href="https://{{domain}}/articles/{{ article.slug }}" />
+<meta property="og:description" content="{% if language == 'fr' %}{{ article.content|clean_markdown|truncatechars:160 }}{% elif language == 'en' %}{{ article.content_en|clean_markdown|truncatechars:160 }}{% elif language == 'es' %}{{ article.content_es|clean_markdown|truncatechars:160 }}{% elif language == 'de' %}{{ article.content_de|clean_markdown|truncatechars:160 }}{% elif language == 'it' %}{{ article.content_it|clean_markdown|truncatechars:160 }}{% elif language == 'ko' %}{{ article.content_ko|clean_markdown|truncatechars:160 }}{% elif language == 'ja' %}{{ article.content_ja|clean_markdown|truncatechars:160 }}{% endif %}.">
+<title>{% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %} - {{name}}</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/blog_detail.min.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/blog_homepage.min.css' %}"/>
+<script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Article",
+      "headline": "{% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %}",
+      "author": {
+        "@type": "Person",
+        "name": "{{domain}}",
+        "url": "https://{{domain}}"
+      },
+      "name": "{% if language == 'fr' %}{{ article.content|clean_markdown|truncatechars:200 }}{% elif language == 'en' %}{{ article.content_en|clean_markdown|truncatechars:200 }}{% elif language == 'es' %}{{ article.content_es|clean_markdown|truncatechars:200 }}{% elif language == 'de' %}{{ article.content_de|clean_markdown|truncatechars:200 }}{% elif language == 'it' %}{{ article.content_it|clean_markdown|truncatechars:200 }}{% elif language == 'ko' %}{{ article.content_ko|clean_markdown|truncatechars:200 }}{% elif language == 'ja' %}{{ article.content_ja|clean_markdown|truncatechars:200 }}{% endif %}",
+      "datePublished": "{{ article.created_at|date:'Y-m-d\TH:i:s.u\Z' }}",
+      "image": "{% if article.image_upload %}https://{{domain}}{{article.image_upload.url}}{% else %}{{article.image}}{% endif %}",
+      "articleBody": "{% if language == 'fr' %}{{ article.content|clean_markdown|truncatechars:160 }}{% elif language == 'en' %}{{ article.content_en|clean_markdown|truncatechars:160 }}{% elif language == 'es' %}{{ article.content_es|clean_markdown|truncatechars:160 }}{% elif language == 'de' %}{{ article.content_de|clean_markdown|truncatechars:160 }}{% elif language == 'it' %}{{ article.content_it|clean_markdown|truncatechars:160 }}{% elif language == 'ko' %}{{ article.content_ko|clean_markdown|truncatechars:160 }}{% elif language == 'ja' %}{{ article.content_ja|clean_markdown|truncatechars:160 }}{% endif %}",
+      "url": "https://{{domain}}{% if language != 'fr' %}/{{ language }}{% endif %}/articles/{{article.slug}}"
+    }
+    </script>
+{% endblock head %}
+
+
+{% block content %}
+<a href="#comment_section" class="rounded-full bg-[#E0F1F3] fixed bottom-0 right-0 p-4 mb-4 mr-4 z-50 hover:p-6 animate-bounce">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-black">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+      </svg>      
+</a>
+<header class="t5D88HfSsyfzALJWQB8t jCISvWkW5oStPH6Wrb_H WpRYr14lnkKDxaIQzJ_o _xc9_ta26QtN17Sx1_Fe _6AI6SY1lyVfKpv37xl0 POA0xdG25nlhxqWJyl1U pcWvkQQ8p_VQZFs_K2QA zencAbqT6WdOZbhcPVjf QYPW4nl6nHaIbrtaXf4h" style="background-image: url({% if article.image_upload %}https://{{domain}}{{article.image_upload.url}}{% else %}{{article.image}}{% endif %});">
+    <div class="iZ8W30HPRQAuO6al90LU _ccvJ9JsfoF81kZ3lkJh _J57_xJ7KhmAX1D2Pnei jCISvWkW5oStPH6Wrb_H j34KztD3SBxL_tQWzosr _ngJt2TgM57HPYTCC5GA F6maSyXBC_uv_A_dciar"></div>
+    <div class="iZ8W30HPRQAuO6al90LU PojEYad6nPpbKmAUjVBI c1ibYmNHw6Cxfcu_pPgz veFXkDzfJN473U3ycrV8 RV8RoaI_SlEMC5CEQ3ms jCISvWkW5oStPH6Wrb_H HV01LldvyEqRHHy0hljF wfpSIkDBCpd44vEdymO_ BRg_hinIPYxGN5WJ_Xay KWb4ZbhYGt096ggQOJa_ Xjxpb8u_H96dZt4r1eF6">
+        <span class="ttxtqsLWp2pFRX8yUvWd _9OKVeTXzfSwD_NYO6_G pDeChwIM17vwwm9ZmlIw">{% trans "Publié dans" %} <a href="/category/{{ article.category }}" class="LYMps1kO2vF8HBymW3az wP9HMsqy6b96l2HBRbgb _5zvlMLkN1qETxEl3IhT">{{ article.category }}</a></span>
+        <h1 class="_9OKVeTXzfSwD_NYO6_G I5nnt4bpo_o8qp1p2_FC _e063bssp_1bldcJ6kR0 P2kov_od1FPjxxII24T5 MxQqv3Z913orO6JQGGbH wP9HMsqy6b96l2HBRbgb fQ3UmoCh_2qglPqQf5CZ vAGTG1e_BcCgc9_9R6z3">{% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %} {% if request.user.is_staff %}{% if ratio > 30 %}<span class="bg-green-700 text-white">Ratio Text/HTML : {% else %}<span class="bg-red-600 text-white">Ratio Text/HTML : {% endif %}{{ratio}}%</span>{% endif %}</h1>
+    </div>
+</header>
+<div class="kqgYncRJQ7spwKfig6It QYPW4nl6nHaIbrtaXf4h MN_MaEuEFmiXUnb4S5NS _T15kfOPGkvwZnqhqKce rhHZLKCNkg6rp7jwfB1J O7PVNyZQb9PCjpNKbt_t KmicKCo2aIIAJvfPPnrM HV01LldvyEqRHHy0hljF yjGyQxv8jnYk9_MGMqLN _cpMMPjFQqjJu4i0Puod YPSoR6AXtPgkmylUmcbT _oadEIkQd6OQiaXef3p8 arrNNfkSdu1f3lPZlfMG _ocA0sk94abY4DpqKzYF max-w-3xl border border-[#09002D] border-solid">
+    <article class="trp_bA_rt_zvxYf81Zkg jCISvWkW5oStPH6Wrb_H QFvy_qHEb4VhI8nsNH9k format format-sm sm:format-base lg:format-lg format-blue">
+        <div class="kqgYncRJQ7spwKfig6It BrSO24r_jx46AXZOyBJR aXohCatq2P98Q80o4vdb _T15kfOPGkvwZnqhqKce l0hZDMTUghc7ACx15hQU">
+            <div class="kqgYncRJQ7spwKfig6It neyUwteEn7DOg9pBSJJE B1cgbA6Bb4LQo0qFJKck K1PPCJwslha8GUIvV_Cr eCx_6PNzncAD5yo7Qcic osxEM2eQc4Pc_arzCZsv rD4HtsUG_hahmbh2Kj09 QTzX2Cr9jhY6WXuEsiB_">
+                <span>{% trans "Par" %} <a href="#" class="g3OYBOqwXUEW4dRGogkH a0Ed69aMSu0vgf4oysz0 _5zvlMLkN1qETxEl3IhT InmgdriTvIwr8C_lWYEj LYMps1kO2vF8HBymW3az">{{name}}</a></span>
+                <span class="HqvWGMU4tAF6SCT7aaHM oa1vnmRHwGkKhMeo1olN eGLbGfR5AYzKjFKW_AQT Kj_JWX8VAGhGDhOAykml n8e6ORKgPTnY6zgs5HS7"></span>
+                <span><time class="oTkHpmOXEgQRdykOe3sq K1PPCJwslha8GUIvV_Cr eCx_6PNzncAD5yo7Qcic" pubdate="{{ article.pub_time }}" datetime="{{ article.pub_time }}" title="{{ article.pub_time|date:"d F Y" }}">{{ article.pub_time|date:"d F Y" }}</time></span>
+            </div>
+        </div>
+        <div class="flex flex-row items-center justify-center mb-2 sticky top-4">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://{{domain}}{% if language != 'fr' %}/{{ language }}{% endif %}/articles/{{ article.slug }}" rel="nofollow" target="_blank" class="flex flex-row items-center px-4 py-2 rounded bg-[#3b5998] text-white mr-2">
+                <svg fill="#FFFFFF" height="24" width="24" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 310 310" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="XMLID_834_"> <path id="XMLID_835_" d="M81.703,165.106h33.981V305c0,2.762,2.238,5,5,5h57.616c2.762,0,5-2.238,5-5V165.765h39.064 c2.54,0,4.677-1.906,4.967-4.429l5.933-51.502c0.163-1.417-0.286-2.836-1.234-3.899c-0.949-1.064-2.307-1.673-3.732-1.673h-44.996 V71.978c0-9.732,5.24-14.667,15.576-14.667c1.473,0,29.42,0,29.42,0c2.762,0,5-2.239,5-5V5.037c0-2.762-2.238-5-5-5h-40.545 C187.467,0.023,186.832,0,185.896,0c-7.035,0-31.488,1.381-50.804,19.151c-21.402,19.692-18.427,43.27-17.716,47.358v37.752H81.703 c-2.762,0-5,2.238-5,5v50.844C76.703,162.867,78.941,165.106,81.703,165.106z"></path> </g> </g></svg>
+            </a>
+            <a href="whatsapp://send?text={% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %} https://{{domain}}{% if language != 'fr' %}/{{ language }}{% endif %}/articles/{{ article.slug }}" target="_blank" rel="nofollow" class="flex flex-row items-center px-4 py-2 rounded bg-[#25D366] text-white mr-2">
+                <svg fill="#ffffff" height="24" width="24" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 308 308" xml:space="preserve" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="XMLID_468_"> <path id="XMLID_469_" d="M227.904,176.981c-0.6-0.288-23.054-11.345-27.044-12.781c-1.629-0.585-3.374-1.156-5.23-1.156 c-3.032,0-5.579,1.511-7.563,4.479c-2.243,3.334-9.033,11.271-11.131,13.642c-0.274,0.313-0.648,0.687-0.872,0.687 c-0.201,0-3.676-1.431-4.728-1.888c-24.087-10.463-42.37-35.624-44.877-39.867c-0.358-0.61-0.373-0.887-0.376-0.887 c0.088-0.323,0.898-1.135,1.316-1.554c1.223-1.21,2.548-2.805,3.83-4.348c0.607-0.731,1.215-1.463,1.812-2.153 c1.86-2.164,2.688-3.844,3.648-5.79l0.503-1.011c2.344-4.657,0.342-8.587-0.305-9.856c-0.531-1.062-10.012-23.944-11.02-26.348 c-2.424-5.801-5.627-8.502-10.078-8.502c-0.413,0,0,0-1.732,0.073c-2.109,0.089-13.594,1.601-18.672,4.802 c-5.385,3.395-14.495,14.217-14.495,33.249c0,17.129,10.87,33.302,15.537,39.453c0.116,0.155,0.329,0.47,0.638,0.922 c17.873,26.102,40.154,45.446,62.741,54.469c21.745,8.686,32.042,9.69,37.896,9.69c0.001,0,0.001,0,0.001,0 c2.46,0,4.429-0.193,6.166-0.364l1.102-0.105c7.512-0.666,24.02-9.22,27.775-19.655c2.958-8.219,3.738-17.199,1.77-20.458 C233.168,179.508,230.845,178.393,227.904,176.981z"></path> <path id="XMLID_470_" d="M156.734,0C73.318,0,5.454,67.354,5.454,150.143c0,26.777,7.166,52.988,20.741,75.928L0.212,302.716 c-0.484,1.429-0.124,3.009,0.933,4.085C1.908,307.58,2.943,308,4,308c0.405,0,0.813-0.061,1.211-0.188l79.92-25.396 c21.87,11.685,46.588,17.853,71.604,17.853C240.143,300.27,308,232.923,308,150.143C308,67.354,240.143,0,156.734,0z M156.734,268.994c-23.539,0-46.338-6.797-65.936-19.657c-0.659-0.433-1.424-0.655-2.194-0.655c-0.407,0-0.815,0.062-1.212,0.188 l-40.035,12.726l12.924-38.129c0.418-1.234,0.209-2.595-0.561-3.647c-14.924-20.392-22.813-44.485-22.813-69.677 c0-65.543,53.754-118.867,119.826-118.867c66.064,0,119.812,53.324,119.812,118.867 C276.546,215.678,222.799,268.994,156.734,268.994z"></path> </g> </g></svg>
+            </a>
+            <!-- <a href="fb-messenger://share/?link=https://{{domain}}{% if language != 'fr' %}/{{ language }}{% endif %}/articles/{{ article.slug }}" target="_blank" rel="nofollow" class="flex flex-row items-center px-4 py-2 rounded bg-[#00B2FF] text-white mr-2">
+                <svg height="24" width="24" viewBox="48.61 50.201 402.77399999999994 402.77399999999994" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <linearGradient id="a" x1="50%" x2="50%" y1="0%" y2="100.001%"> <stop offset="0" stop-color="#00b2ff"></stop> <stop offset="1" stop-color="#006aff"></stop> </linearGradient> <g fill="none" fill-rule="evenodd"> <path d="M250 50.201c-112.676 0-200 82.452-200 193.81 0 58.25 23.903 108.582 62.817 143.356 3.26 2.935 5.231 6.995 5.392 11.377l1.087 35.537c.362 11.337 12.072 18.694 22.455 14.151l39.678-17.487a15.974 15.974 0 0 1 10.664-.804c18.229 5.025 37.666 7.678 57.907 7.678 112.676 0 200-82.452 200-193.809S362.676 50.201 250 50.201z" fill="url(#a)"></path> <path d="M129.92 300.693l58.752-93.105c9.336-14.794 29.376-18.493 43.38-8l46.72 35.015a12.022 12.022 0 0 0 14.447-.04l63.099-47.84c8.41-6.391 19.437 3.7 13.762 12.624l-58.712 93.065c-9.336 14.794-29.376 18.493-43.38 8l-46.72-35.015a12.022 12.022 0 0 0-14.447.04l-63.139 47.88c-8.41 6.392-19.437-3.699-13.762-12.624z" fill="#ffffff"></path> </g> </g></svg>
+            </a> -->
+            <a href="https://twitter.com/intent/tweet?text={% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %} https://{{domain}}{% if language != 'fr' %}/{{ language }}{% endif %}/articles/{{ article.slug }}" target="_blank" rel="nofollow" class="flex flex-row items-center px-4 py-2 rounded bg-[#24B7F2] text-white mr-2">
+                <svg height="24" viewBox="0 0 24 24" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21 6.49998L22.5 3.49998L20 4.49998C14 0.499984 11.8333 5.49998 11.5 8.49998C7.1 8.49998 4 5.49998 3 3.99998C-0.2 9.99998 4.5 15 8 17C7.5 18 1 19 1 19C17.5 25 21 12.5 21 6.49998Z"></path> </g></svg>
+            </a>
+            <a href="https://t.me/share/url?url=https://{{domain}}{% if language != 'fr' %}/{{ language }}{% endif %}/articles/{{ article.slug }}&text={% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %}" target="_blank" rel="nofollow" class="flex flex-row items-center px-4 py-2 rounded bg-[#29A1DD] text-white mr-2">
+                <svg fill="#ffffff" height="24" width="24" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 455 455" xml:space="preserve" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path style="fill-rule:evenodd;clip-rule:evenodd;" d="M0,0v455h455V0H0z M384.814,100.68l-53.458,257.136 c-1.259,6.071-8.378,8.822-13.401,5.172l-72.975-52.981c-4.43-3.217-10.471-3.046-14.712,0.412l-40.46,32.981 c-4.695,3.84-11.771,1.7-13.569-4.083l-28.094-90.351l-72.583-27.089c-7.373-2.762-7.436-13.171-0.084-16.003L373.36,90.959 C379.675,88.517,386.19,94.049,384.814,100.68z"></path> <path style="fill-rule:evenodd;clip-rule:evenodd;" d="M313.567,147.179l-141.854,87.367c-5.437,3.355-7.996,9.921-6.242,16.068 l15.337,53.891c1.091,3.818,6.631,3.428,7.162-0.517l3.986-29.553c0.753-5.564,3.406-10.693,7.522-14.522l117.069-108.822 C318.739,149.061,316.115,145.614,313.567,147.179z"></path> </g> </g></svg>
+            </a>
+            <a href="http://www.reddit.com/submit?url=https://{{domain}}{% if language != 'fr' %}/{{ language }}{% endif %}/articles/{{ article.slug }}&title={% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %}" target="_blank" rel="nofollow" class="flex flex-row items-center px-4 py-2 rounded bg-[#FF4500] text-white mr-2">
+                <svg height="24" width="24" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 429.709 429.709" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path style="fill:#ffffff;" d="M429.709,196.618c0-29.803-24.16-53.962-53.963-53.962c-14.926,0-28.41,6.085-38.176,15.881 c-30.177-19.463-68.73-31.866-111.072-33.801c0.026-17.978,8.078-34.737,22.104-45.989c14.051-11.271,32.198-15.492,49.775-11.588 l2.414,0.536c-0.024,0.605-0.091,1.198-0.091,1.809c0,24.878,20.168,45.046,45.046,45.046s45.046-20.168,45.046-45.046 c0-24.879-20.168-45.046-45.046-45.046c-15.997,0-30.01,8.362-38.002,20.929l-4.317-0.959c-24.51-5.446-49.807,0.442-69.395,16.156 c-19.564,15.695-30.792,39.074-30.818,64.152c-42.332,1.934-80.878,14.331-111.052,33.785c-9.767-9.798-23.271-15.866-38.2-15.866 C24.16,142.656,0,166.815,0,196.618c0,20.765,11.75,38.755,28.946,47.776c-1.306,6.68-1.993,13.51-1.993,20.462 c0,77.538,84.126,140.395,187.901,140.395s187.901-62.857,187.901-140.395c0-6.948-0.687-13.775-1.991-20.452 C417.961,235.381,429.709,217.385,429.709,196.618z M345.746,47.743c12,0,21.762,9.762,21.762,21.762 c0,11.999-9.762,21.761-21.762,21.761s-21.762-9.762-21.762-21.761C323.984,57.505,333.747,47.743,345.746,47.743z M23.284,196.618 c0-16.916,13.762-30.678,30.678-30.678c7.245,0,13.895,2.538,19.142,6.758c-16.412,14.08-29.118,30.631-37.007,48.804 C28.349,215.937,23.284,206.868,23.284,196.618z M333.784,345.477c-31.492,23.53-73.729,36.489-118.929,36.489 s-87.437-12.959-118.929-36.489c-29.462-22.013-45.688-50.645-45.688-80.621c0-29.977,16.226-58.609,45.688-80.622 c31.492-23.53,73.729-36.489,118.929-36.489s87.437,12.959,118.929,36.489c29.462,22.013,45.688,50.645,45.688,80.622 C379.471,294.832,363.246,323.464,333.784,345.477z M393.605,221.488c-7.891-18.17-20.596-34.716-37.005-48.794 c5.247-4.22,11.901-6.754,19.147-6.754c16.916,0,30.678,13.762,30.678,30.678C406.424,206.867,401.353,215.925,393.605,221.488z"></path> <circle style="fill:#000000;" cx="146.224" cy="232.074" r="24.57"></circle> <circle style="fill:#000000;" cx="283.484" cy="232.074" r="24.57"></circle> <path style="fill:#ffffff;" d="M273.079,291.773c-17.32,15.78-39.773,24.47-63.224,24.47c-26.332,0-50.729-10.612-68.696-29.881 c-4.384-4.704-11.751-4.96-16.454-0.575c-4.703,4.384-4.96,11.752-0.575,16.454c22.095,23.695,53.341,37.285,85.726,37.285 c29.266,0,57.288-10.847,78.905-30.543c4.752-4.33,5.096-11.694,0.765-16.446C285.197,287.788,277.838,287.44,273.079,291.773z"></path> </g> </g></svg>
+            </a>
+        </div>
+        {% if language == 'fr' %}{{ article.content|markdown|safe }}{% elif language == 'en' %}{{ article.content_en|markdown|safe }}{% elif language == 'es' %}{{ article.content_es|markdown|safe }}{% elif language == 'de' %}{{ article.content_de|markdown|safe }}{% elif language == 'it' %}{{ article.content_it|markdown|safe }}{% elif language == 'ko' %}{{ article.content_ko|markdown|safe }}{% elif language == 'ja' %}{{ article.content_ja|markdown|safe }}{% endif %}
+        {% if article.video %}
+            {{article.video|safe}}
+        {% endif %}
+        <br><br>
+    </article>
+</div>
+<section class="bg-white py-8 lg:py-16 antialiased mt-32">
+    <div class="max-w-2xl mx-auto px-4">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-lg lg:text-2xl font-bold text-gray-900">{{ comments_count }} {% trans "Commentaires" %}</h2>
+      </div>
+      <form class="mb-6" method="post" id="comment_section">
+        {% csrf_token %}
+        <div class="py-2 px-4 mb-4 rounded-lg rounded-t-lg border border-gray-200 {% if request.COOKIES.email %}bg-gray-400{% else %}bg-white{% endif %}">
+            <label for="email" class="sr-only">{% trans "Votre email" %}</label>
+            <input type="email" name="email" placeholder="{% trans 'Votre email' %}" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none disabled:bg-gray-400" {% if request.COOKIES.email %}value="{{ request.COOKIES.email }}" disabled{% endif %}>
+        </div>
+        <div class="py-2 px-4 mb-4 rounded-lg rounded-t-lg border border-gray-200 {% if request.COOKIES.email %}bg-gray-400{% else %}bg-white{% endif %}">
+            <label for="username" class="sr-only">{% trans "Votre nom d'affichage" %}</label>
+            <input type="text" name="username" placeholder="{% trans 'Votre nom d\'affichage' %}" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none disabled:bg-gray-400" {% if request.COOKIES.username %}value="{{ request.COOKIES.username }}" disabled{% endif %}>
+        </div>
+        <div class="py-2 px-4 mb-4 rounded-lg rounded-t-lg border border-gray-200">
+            <label for="comment" class="sr-only">{% trans "Votre commentaire" %}</label>
+            <textarea id="comment" rows="6" name="comment"
+                class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none"
+                placeholder="{% trans 'Ecrire un commentaire...' %}" required value=""></textarea>
+        </div>
+        <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-primary-800 w-full justify-center" style="background-color: {{color_primary}};">
+            {% trans 'Poster le commentaire' %}
+        </button>
+      </form>
+      {% if comments %}
+        {% for comment in comments %}
+            {% if not comment.in_reply_to and not comment.disabled %}
+                <article class="p-6 text-base bg-white rounded-lg" id="comment_{{ comment.pk }}">
+                    <footer class="flex justify-between items-center mb-2">
+                        <div class="flex items-center">
+                            <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">{{ comment.username }}</p>
+                            <p class="text-sm text-gray-600">
+                                <time pubdate datetime="{{ comment.pub_time }}"title="{{ comment.pub_time }}">{{ comment.pub_time }}</time>
+                            </p>
+                        </div>
+                    </footer>
+                    <p class="text-gray-500">{{ comment.message }}</p>
+                    <div class="flex items-center mt-4 space-x-4">
+                        <button type="button" onclick="displayCommentForm({{ comment.pk }})" class="flex items-center text-sm text-gray-500 hover:underline font-medium">
+                            <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
+                            </svg>
+                            {% trans "Répondre" %}
+                        </button>
+                    </div>
+                    <form class="mb-6 mt-4 hidden" method="post" id="{{ comment.pk }}">
+                        {% csrf_token %}
+                        <div class="py-2 px-4 mb-4 rounded-lg rounded-t-lg border border-gray-200 {% if request.COOKIES.email %}bg-gray-400{% else %}bg-white{% endif %}">
+                            <label for="email" class="sr-only">{% trans "Votre email" %}</label>
+                            <input type="email" name="email" placeholder="{% trans 'Votre email' %}" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none disabled:bg-gray-400" {% if request.COOKIES.email %}value="{{ request.COOKIES.email }}" disabled{% endif %}>
+                        </div>
+                        <div class="py-2 px-4 mb-4 rounded-lg rounded-t-lg border border-gray-200 {% if request.COOKIES.email %}bg-gray-400{% else %}bg-white{% endif %}">
+                            <label for="username" class="sr-only">{% trans "Votre nom d'affichage" %}</label>
+                            <input type="text" name="username" placeholder="{% trans 'Votre nom d\'affichage' %}" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none disabled:bg-gray-400" {% if request.COOKIES.username %}value="{{ request.COOKIES.username }}" disabled{% endif %}>
+                        </div>
+                        <div class="py-2 px-4 mb-4 rounded-lg rounded-t-lg border border-gray-200">
+                            <label for="comment" class="sr-only">{% trans "Votre commentaire" %}</label>
+                            <textarea id="comment" rows="6" name="comment"
+                                class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none"
+                                placeholder="{% trans 'Ecrire un commentaire...' %}" required value=""></textarea>
+                        </div>
+                        <input type="text" name="in_reply_to" value="{{ comment.pk }}" class="hidden">
+                        <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-primary-800 w-full justify-center" style="background-color: {{color_primary}};">
+                            {% trans 'Répondre' %}
+                        </button>
+                    </form>
+                </article>
+            {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+</section>
+<section class="flex justify-center flex-col items-center mx-4">
+    <h2 class="font-bold text-xl mb-4">{% trans "Vous pouvez lire aussi..." %}</h2>
+    {% for article in related_articles %}
+        <article class="ec lx yr zt czb rounded p-4 mb-4 items-center uk">
+            <span class="avz awg awp axv brn flex flex-col justify-center items-center">
+                <a href="{% if language != 'fr' %}/{{ language }}{% endif %}/articles/{{ article.slug }}">
+                <img src="{% if article.image_upload %}https://{{domain}}{{article.image_upload.url}}{% else %}{{article.image}}{% endif %}" alt="{% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %}">
+                </a>
+                <a href="{% if language != 'fr' %}/{{ language }}{% endif %}/articles/{{ article.slug }}">
+                    {% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %}
+                </a>
+            </span>
+        </article>
+    {% endfor %}
+</section>
+{% if selected_objects %}
+<section class="text-center">
+    <h2 class="font-bold text-[#F0C95F]">Des produits lié à la K-pop</h2>
+    <div class="flex flex-row overflow-x-auto">
+        {% for product in selected_objects %}
+            <div class="flex flex-row items-center relative p-4">
+                <a href="https://lesecteur.fr/url/redirect?url_redirect=https://amazon.fr/dp/{{product.asin}}?tag=lesecteur0a-21" target="_blank" rel="nofollow sponsored">
+                    <div class="flex flex-col justify-center items-center w-60 m-4">
+                        <img src="{{product.image}}" alt="{{product.title}}" class="w-60 h-60">
+                        <p class="text-center font-medium">{{product.title}}</p>
+                        <p class="text-center italic text-xs mb-3">{{product.description|clean_markdown|truncatechars:160}}</p>
+                        <p class="rounded-lg py-2.5 me-2 absolute bottom-0 pl-5 w-4/5 text-white" style="background-color: {{color_primary}}">Voir</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+</section>
+{% endif %}
+<script>
+    function displayCommentForm(commentid) {
+        var form = document.getElementById(commentid);
+        // toggle hidden class
+        form.classList.toggle('hidden');
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "webpage/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block og_url %}https://{{domain}}/articles{% endblock %}
+{% block metaDesc %}Lisez toutes les actualités K-Pop et K-Drama historisées et uniquement disponible sur {{name}}{% endblock %}
+{% block canonical %}https://{{domain}}/articles{% endblock %}
+
+
+{% block head %}
+<meta property="og:description" content="Dernières actualités sur la K-pop dans la catégorie {{category}}.">
+<title>Statistiques - {{name}}</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/blog_homepage.min.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/pagination.min.css' %}"/>
+{% endblock head %}
+
+
+{% block content %}
+<p>Statistiques du {{ date }}</p>
+<select id="dateSelector" class="select select-bordered w-full max-w-xs bg-white border-white">
+    <option disabled selected>Choisissez la date</option>
+    {% for date in date_list %}
+        <option value="{{date|date:"Y-m-d"}}">{{date|date:"d-m-Y"}}</option>
+    {% endfor %}
+</select>
+<p class="text-green-600">{{ unique_ips_today }} visiteurs aujourd'hui</p>
+{% if best_urls %}
+<h1>Liens visités aujourd'hui : </h1>
+<div style="border: 1px solid red;">
+    {% for url in best_urls %}
+        <p><span class="{% if url.count > 5 %}bg-green-600{% endif %}">{{url.count}} fois</span> : {{url.url}}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if best_utm %}
+<h1>UTM Source aujourd'hui : </h1>
+<div style="border: 1px solid white;">
+    {% for utm in best_utm %}
+        <p><span class="{% if utm.count > 5 %}bg-green-600{% endif %}">{{utm.count}} fois</span> : {{utm.utm_source}}</p>
+    {% endfor %}
+</div>
+{% endif %}
+{% if best_referers %}
+<h1>Referers aujourd'hui : </h1>
+<div style="border: 1px solid red;">
+    {% for referer in best_referers %}
+        <p><span class="{% if referer.count > 5 %}bg-green-600{% endif %}">{{referer.count}} fois</span> : {{referer.referer}}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if best_ua %}
+<h1>User-Agent aujourd'hui : </h1>
+<div style="border: 1px solid red;">
+    {% for ua in best_ua %}
+        <p><span class="{% if ua.count > 5 %}bg-green-600{% endif %}">{{ua.count}} fois</span> : {{ua.ua}}</p>
+    {% endfor %}
+</div>
+{% endif %}
+<script>
+    // Fonction pour gérer le changement dans le sélecteur
+    function handleDateChange() {
+        // Obtenez la valeur sélectionnée
+        var selectedDate = document.getElementById('dateSelector').value;
+
+        // Redirigez vers l'URL avec le paramètre date
+        window.location.href = '?date=' + selectedDate;
+    }
+
+    // Ajoutez un écouteur d'événements pour détecter les changements dans le sélecteur
+    document.getElementById('dateSelector').addEventListener('change', handleDateChange);
+</script>
+{% endblock %}

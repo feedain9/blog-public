@@ -1,0 +1,88 @@
+{% extends "webpage/base.html" %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+
+{% block og_url %}https://{{domain}}{{canonical}}{% endblock %}
+{% block metaDesc %}{% trans "Lisez les dernières actualités K-Pop et K-Drama" %} {{category}} {% trans "sur" %} {{name}}{% if category_articles.number > 1 %} | {% trans "Page" %} {{category_articles.number}}{% endif %}{% endblock %}
+{% block canonical %}https://{{domain}}{% if language != 'fr' %}/{{ language }}{% endif %}{{canonical}}{% if category_articles.number > 1 %}?page={{category_articles.number}}{% endif %}{% endblock %}
+
+
+{% block head %}
+<link rel="alternate" hreflang="fr" href="https://{{domain}}{{canonical}}{% if category_articles.number > 1 %}?page={{category_articles.number}}{% endif %}" />
+<link rel="alternate" hreflang="en" href="https://{{domain}}/en{{canonical}}{% if category_articles.number > 1 %}?page={{category_articles.number}}{% endif %}" />
+<link rel="alternate" hreflang="de" href="https://{{domain}}/de{{canonical}}{% if category_articles.number > 1 %}?page={{category_articles.number}}{% endif %}" />
+<link rel="alternate" hreflang="es" href="https://{{domain}}/es{{canonical}}{% if category_articles.number > 1 %}?page={{category_articles.number}}{% endif %}" />
+<link rel="alternate" hreflang="it" href="https://{{domain}}/it{{canonical}}{% if category_articles.number > 1 %}?page={{category_articles.number}}{% endif %}" />
+<link rel="alternate" hreflang="ja" href="https://{{domain}}/ja{{canonical}}{% if category_articles.number > 1 %}?page={{category_articles.number}}{% endif %}" />
+<link rel="alternate" hreflang="ko" href="https://{{domain}}/ko{{canonical}}{% if category_articles.number > 1 %}?page={{category_articles.number}}{% endif %}" />
+<link rel="alternate" hreflang="x-default" href="https://{{domain}}{{canonical}}{% if category_articles.number > 1 %}?page={{category_articles.number}}{% endif %}" />
+<meta property="og:description" content="{% if category %}{{category}}{% else %}{% trans "Les actualités lié à la K-pop dans le domaine" %}{% endif %}.">
+<title>{% if category %}{{category}}{% else %}{% trans "Les actualités lié à la K-pop dans le domaine" %}{% endif %} - {{name}}{% if category_articles.number > 1 %} | {% trans "Page" %} {{category_articles.number}}{% endif %}</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/blog_homepage.min.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/pagination.min.css' %}"/>
+{% endblock head %}
+
+
+{% block content %}
+<div class="alo ary cfm">
+    <div class="gx ua ark ddh">
+       <div class="gx tv cxg">
+          <h1 class="avs awd awx axv chx">{% trans "Actualités sur la K-pop à la une" %}</h1>
+          <h2 class="lb avz awr axs">{{category}}</h2>
+          <div class="la abt cum dap">
+            {% for article in category_articles %}
+             <article class="ab ec lx yr zt czb">
+                <div class="ab mo bxy cvf cws cxv">
+                   <img src="{% if article.image_upload %}https://{{domain}}{{ article.image_upload.url }}{% else %}{{ article.image }}{% endif %}" alt="{% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %}" class="aa ak ph tn adq aiq aqe">
+                   <div class="aa ak adq bbt bbx bco"></div>
+                </div>
+                <div>
+                  <div class="lx yz aag awc">
+                     <time datetime="{{ article.pub_time }}" class="axr">{{ article.pub_time|date:"d F Y" }}</time>
+                     <a href="{% if language != 'fr' %}/{{ language }}{% endif %}/category/{{ article.category }}" class="ab eg ads aiq arf arq awe axs bic">{{ article.category }}</a>
+                  </div>
+                   <div class="bqg ab uk">
+                     <h3 class="lf avz awg awp axv brn">
+                        <a href="{% if language != 'fr' %}/{{ language }}{% endif %}/articles/{{ article.slug }}">
+                           <span class="aa ak"></span>
+                           {% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %}
+                        </a>
+                     </h3>
+                      <p class="lj awa awp axs">{% if language == 'fr' %}{{ article.content|clean_markdown|truncatechars:500 }}{% elif language == 'en' %}{{ article.content_en|clean_markdown|truncatechars:500 }}{% elif language == 'es' %}{{ article.content_es|clean_markdown|truncatechars:500 }}{% elif language == 'de' %}{{ article.content_de|clean_markdown|truncatechars:500 }}{% elif language == 'it' %}{{ article.content_it|clean_markdown|truncatechars:500 }}{% elif language == 'ko' %}{{ article.content_ko|clean_markdown|truncatechars:500 }}{% elif language == 'ja' %}{{ article.content_ja|clean_markdown|truncatechars:500 }}{% endif %}</p>
+                   </div>
+                   <div class="lk lx afm agc ave">
+                      <div class="ab lx yz aag">
+                         <img src="{% static 'img/logo.webp' %}" alt="{% if language == 'fr' %}{{ article.title }}{% elif language == 'en' %}{{ article.title_en }}{% elif language == 'es' %}{{ article.title_es }}{% elif language == 'de' %}{{ article.title_de }}{% elif language == 'it' %}{{ article.title_it }}{% elif language == 'ko' %}{{ article.title_ko }}{% elif language == 'ja' %}{{ article.title_ja }}{% endif %}" class="nh rj ads aiq">
+                         <div class="awa awp">
+                           <p class="awg axv">
+                              <a href="#">
+                                 <span class="aa ak"></span>
+                                 {{name}}
+                              </a>
+                           </p>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </article>
+             {% endfor %}
+             <nav class="lx yz zf afm afu alo ari arz cfc" aria-label="Pagination">
+               <div class="md bxo">
+                  <p class="awa axt">{% trans "Affichage de" %} <span class="awe">{{ category_articles.number }}</span> {% trans "à" %} <span class="awe">25</span> {% trans "sur" %} <span class="awe">{{ category_articles.paginator.num_pages }}</span> {% trans "résultats" %}</p>
+               </div>
+               <div class="lx um zf cbm">
+                  {% if category_articles.has_previous %}
+                  <a href="?page={{ category_articles.previous_page_number }}" class="ab ly yz adu alo arf arv awa awg axv bbt bbx bcf bih bpa">{% trans "Précédent" %}</a>
+                  {% endif %}
+
+                  {% if category_articles.has_next %}
+                  <a href="?page={{ category_articles.next_page_number }}" class="ab jw ly yz adu alo arf arv awa awg axv bbt bbx bcf bih bpa">{% trans "Suivant" %}</a>
+                  {% endif %}
+               </div>
+            </nav>
+          </div>
+       </div>
+    </div>
+</div>
+{% endblock %}

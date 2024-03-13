@@ -1,0 +1,35 @@
+{% extends "email/base.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block preheader %}{{preheader}}{% endblock %}
+{% block content %}
+<p style="font-family: Helvetica, sans-serif; font-size: 25px; font-weight: bold; margin: 0; margin-bottom: 16px; text-align: center;">Les actualités d'aujourd'hui sur {{name}} :</p>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%; min-width: 100%;" width="100%">
+    <tbody>
+        {% for article in articles %}
+        <tr style="display: block;text-align: center;">
+            <td align="left" style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 16px;" valign="top">
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
+                    <tbody>
+                        <tr>
+                            <img src="https://{{domain}}{{article.image_upload.url}}" alt="{{article.title}}" width="600" height="auto" border="0" style="border:0; outline:none; text-decoration:none; display:block;text-align: center;">
+                        </tr>
+                        <tr>
+                            <td style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 16px;" valign="top">
+                                <h1 style="font-family: Helvetica, sans-serif; font-size: 24px; font-weight: normal; margin: 0; margin-bottom: 16px;">{{article.title}}</h1>
+                                <p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">{{article.description|truncatechars:50}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                        <td style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: {{color_primary}};" valign="top" align="center" bgcolor="{{color_primary}}"> 
+                            <a href="https://{{domain}}/articles/{{ article.pk }}" target="_blank" style="border: solid 2px {{color_primary}}; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 6px 24px; text-decoration: none; text-transform: capitalize; background-color: {{color_primary}}; border-color: {{color_primary}}; color: #ffffff;">Lire</a> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<img src="https://{{domain}}/mail?to={{ email }}&campaign={{ tracking_object.pk }}" width="1px" height="1px">
+{%endblock%}
+{% block unsuscribe %}https://kpopalerts.fr/unsuscribe?user={{token}}{%endblock%}

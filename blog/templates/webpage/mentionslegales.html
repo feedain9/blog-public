@@ -1,0 +1,29 @@
+{% extends "webpage/base.html" %}
+{% load i18n %}
+
+{% block og_url %}https://{{domain}}/mentions-legales{% endblock %}
+{% block canonical %}https://{{domain}}/mentions-legales{% endblock %}
+{% block metaDesc %}Consultez les mentions légales.{% endblock %}
+
+{% block head %}
+<meta property="og:description" content="Consultez les mentions légales.">
+<title>Mentions légales</title>
+{% endblock head %}
+
+
+{%block content%}
+<div class="flex items-center justify-center flex-col h-screen">
+    <h1>Mentions légales {{domain}}</h1>
+    <p>En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises</p>
+    <p>En tant que partenaire affilié aux marchands proposés sur {{domain}}, les liens sur nôtre site peuvent être monétisés.</p>
+
+    <p>Email de contact : support@{{domain}}</p>
+    <p>Hébergeur : PulseHeberg</p>
+    <p>SAS – 9 BD DE STRASBOURG 83000 TOULON</p>
+    <p>Capital : 1 000,00 €</p>
+    <p>TVA Intracommunautaire : FR29824070619</p>
+    <p>Tel : +33 (0) 4 22 14 13 60</p>
+    <p>Email : contact@pulseheberg.com</p>
+    <p>Ce site est hébergé sur l'offre Cloud de PulseHeberg. Il est géographiquement localisé dans le centre d'hébergement à Paris, en France..</p>
+</div>
+{% endblock %} 

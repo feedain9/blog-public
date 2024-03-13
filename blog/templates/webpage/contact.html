@@ -1,0 +1,87 @@
+{% extends "webpage/base.html" %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+
+{% block og_url %}https://{{domain}}/contact{% endblock %}
+{% block metaDesc %}{% trans "Contactez-nous pour vos interrogations concernant la K-pop" %} - {{ name }}{% endblock %}
+{% block canonical %}https://{{domain}}/{% if language != 'fr' %}{{ language }}/{% endif %}contact{% endblock %}
+
+
+{% block head %}
+<link rel="alternate" hreflang="fr" href="https://{{domain}}/contact" />
+<link rel="alternate" hreflang="en" href="https://{{domain}}/en/contact" />
+<link rel="alternate" hreflang="de" href="https://{{domain}}/de/contact" />
+<link rel="alternate" hreflang="es" href="https://{{domain}}/es/contact" />
+<link rel="alternate" hreflang="it" href="https://{{domain}}/it/contact" />
+<link rel="alternate" hreflang="ja" href="https://{{domain}}/ja/contact" />
+<link rel="alternate" hreflang="ko" href="https://{{domain}}/ko/contact" />
+<link rel="alternate" hreflang="x-default" href="https://{{domain}}/contact" />
+<meta property="og:description" content="{% trans "Contactez-nous" %} - {{domain}}.">
+<title>{% trans "Contactez-nous" %} - {{domain}}</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/contact.min.css' %}"/>
+{% endblock head %}
+
+
+{%block content%}
+<div class="ab ec alo">
+  <div class="gx mb ua yg cyr">
+     <div class="ab ark asp auw chi cqc ddh ddq">
+        <div class="gx uk ctg cxk">
+           <div class="aa as cg ed tn adg aij bbt bco cwl">
+              <svg class="aa ak ph tn api bfb" aria-hidden="true">
+                 <defs>
+                    <pattern id="83fd4e5a-9d52-42fc-97b6-718e5d7ee527" width="200" height="200" x="100%" y="-1" patternUnits="userSpaceOnUse">
+                       <path d="M130 200V.5M.5 .5H200" fill="none"></path>
+                    </pattern>
+                 </defs>
+                 <rect width="100%" height="100%" stroke-width="0" fill="white"></rect>
+                 <svg x="100%" y="-1" class="adh aop">
+                    <path d="M-470.5 0h201v201h-201Z" stroke-width="0"></path>
+                 </svg>
+                 <rect width="100%" height="100%" stroke-width="0" fill="url(#83fd4e5a-9d52-42fc-97b6-718e5d7ee527)"></rect>
+              </svg>
+           </div>
+           <h1 class="avs awd awx axv">{% trans "Contactez-nous" %}</h1>
+           <h2 class="lk avz awr axs">{% trans "Une question ? Une demande ? Autre chose ? Contactez-nous en remplissant ce formulaire." %}</h2>
+           <dl class="kw abw avy awq axs">
+              <div class="lx aag">
+                 <dt class="uo">
+                    <span class="t">{% trans "Email" %}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="oe se axp">
+                       <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path>
+                    </svg>
+                 </dt>
+                 <dd><a class="blb" href="mailto:support@{{domain}}">support@{{domain}}</a></dd>
+              </div>
+           </dl>
+        </div>
+     </div>
+     <form action="/contact" method="POST" class="ark asq auv cga ddh ddq">
+      {% csrf_token %}
+        <div class="gx uk cuh cxk">
+           <div class="mb yg aaj aau cat">
+              <div>
+                 <label for="first-name" class="lu awa awg awp axv">{% trans "Nom" %}</label>
+                 <div class="lc"><input type="text" name="first-name" id="first-name" autocomplete="given-name" class="lu tn adu afa arg arv axv bbn bbt bbx bcf bgd bne bnf bnr cid cif"></div>
+              </div>
+              <div>
+                 <label for="last-name" class="lu awa awg awp axv">{% trans "Prénom" %}</label>
+                 <div class="lc"><input type="text" name="last-name" id="last-name" autocomplete="family-name" class="lu tn adu afa arg arv axv bbn bbt bbx bcf bgd bne bnf bnr cid cif"></div>
+              </div>
+              <div class="buf">
+                 <label for="email" class="lu awa awg awp axv">{% trans "Email" %}</label>
+                 <div class="lc"><input type="email" name="email" id="email" autocomplete="email" class="lu tn adu afa arg arv axv bbn bbt bbx bcf bgd bne bnf bnr cid cif"></div>
+              </div>
+              <div class="buf">
+                 <label for="message" class="lu awa awg awp axv">{% trans "Message" %}</label>
+                 <div class="lc"><textarea name="message" id="message" rows="4" class="lu tn adu afa arg arv axv bbn bbt bbx bcf bgd bne bnf bnr cid cif"></textarea></div>
+              </div>
+           </div>
+           <div class="lm lx zd"><button type="submit" class="adu ajr arg arw avl awa awg bah bbn bis boy boz bpb bpk" style="background-color: {{color_primary}};">{% trans "Envoyer" %}</button></div>
+           <p class="text-green-600">{% if success %}{% trans "Votre message a bien été envoyé" %}{% endif %}</p>
+         </div>
+     </form>
+  </div>
+</div>
+{% endblock %} 
